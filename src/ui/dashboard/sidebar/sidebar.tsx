@@ -1,5 +1,5 @@
 import styles from "./sidebar.module.css";
-import { MenuItemType } from "../../../../types/Types";
+import { MenuItemType } from "../../../utils/types/Types";
 import {
   MdDashboard,
   MdSupervisedUserCircle,
@@ -10,6 +10,7 @@ import {
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
+  MdLogout,
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
 import { RelativeRoutingType } from "react-router-dom";
@@ -77,12 +78,26 @@ let menuItems: MenuItemType[] = [
     ],
   },
 ];
+
 const SideBar = () => {
   return (
     <div className={styles.container}>
-      <ul>
+      <div className={styles.user}>
+        <img
+          className={styles.userImage}
+          src="../../../../public/noavatar.png"
+          alt=""
+          width="50"
+          height="50"
+        ></img>
+        <div className={styles.userDetail}>
+          <span className={styles.userName}>John doe</span>
+          <span className={styles.userTitle}>Admininstrator</span>
+        </div>
+      </div>
+      <ul className={styles.list}>
         {menuItems.map((elem: MenuItemType) => (
-          <li>
+          <li key={elem.title}>
             <span className={styles.category}>{elem.title}</span>
             {elem.list.map(
               (item: {
@@ -90,12 +105,16 @@ const SideBar = () => {
                 path: RelativeRoutingType;
                 icon: ReactNode;
               }) => (
-                <MenuLink item={item} />
+                <MenuLink item={item} key={item.title} />
               )
             )}
           </li>
         ))}
       </ul>
+      <button className={styles.logout}>
+        <MdLogout />
+        Logout
+      </button>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Layout from "./layout";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Products from "./products/page";
 import Users from "./users/page";
-import { childType } from "../../types/Types";
+import { childType } from "../utils/types/Types";
 
 const DashBoard: React.FC<childType> = () => {
   return (

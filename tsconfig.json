@@ -3,7 +3,7 @@
     "target": "es5",
     "baseUrl": "./",
     "paths": {
-      "*": ["src/types/*"]
+      "*": ["src/utils/types/*"]
      },
     "lib": [
       "dom",
