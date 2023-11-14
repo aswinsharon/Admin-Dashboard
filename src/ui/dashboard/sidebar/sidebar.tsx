@@ -1,3 +1,5 @@
+import { RelativeRoutingType } from "react-router-dom";
+import { ReactNode } from "react";
 import styles from "./sidebar.module.css";
 import { MenuItemType } from "../../../utils/types/Types";
 import {
@@ -13,8 +15,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
-import { RelativeRoutingType } from "react-router-dom";
-import { ReactNode } from "react";
+import noavatar from "../../../assets/noavatar.png";
 
 let menuItems: MenuItemType[] = [
   {
@@ -85,7 +86,7 @@ const SideBar = () => {
       <div className={styles.user}>
         <img
           className={styles.userImage}
-          src="../../../../public/noavatar.png"
+          src={noavatar}
           alt=""
           width="50"
           height="50"
