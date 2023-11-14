@@ -1,5 +1,5 @@
 import styles from "./transactions.module.css";
-
+import noavatar from "../../../assets/noavatar.png";
 const Transactions = () => {
   return (
     <div className={styles.container}>
@@ -16,14 +16,16 @@ const Transactions = () => {
         <tbody>
           <tr>
             <td>
-              <img
-                src=""
-                alt=""
-                width={40}
-                height={40}
-                className={styles.userImage}
-              ></img>
-              John Doe
+              <div className={styles.user}>
+                <img
+                  src={noavatar}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className={styles.userImage}
+                ></img>
+                John Doe
+              </div>
             </td>
             <td>
               <span className={`${styles.status} ${styles.pending}`}>
@@ -35,14 +37,16 @@ const Transactions = () => {
           </tr>
           <tr>
             <td>
-              <img
-                src=""
-                alt=""
-                width={40}
-                height={40}
-                className={styles.userImage}
-              ></img>
-              John Doe
+              <div className={styles.user}>
+                <img
+                  src={noavatar}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className={styles.userImage}
+                ></img>
+                John Doe
+              </div>
             </td>
             <td>
               <span className={`${styles.status} ${styles.done}`}>Done</span>
@@ -52,14 +56,16 @@ const Transactions = () => {
           </tr>
           <tr>
             <td>
-              <img
-                src=""
-                alt=""
-                width={40}
-                height={40}
-                className={styles.userImage}
-              ></img>
-              John Doe
+              <div className={styles.user}>
+                <img
+                  src={noavatar}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className={styles.userImage}
+                ></img>
+                John Doe
+              </div>
             </td>
             <td>
               <span className={`${styles.status} ${styles.cancelled}`}>
@@ -71,14 +77,16 @@ const Transactions = () => {
           </tr>
           <tr>
             <td>
-              <img
-                src=""
-                alt=""
-                width={40}
-                height={40}
-                className={styles.userImage}
-              ></img>
-              John Doe
+              <div className={styles.user}>
+                <img
+                  src={noavatar}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className={styles.userImage}
+                ></img>
+                John Doe
+              </div>
             </td>
             <td>
               <span className={`${styles.status} ${styles.pending}`}>
