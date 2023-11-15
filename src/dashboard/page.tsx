@@ -8,7 +8,6 @@ import styles from "./dashboard.module.css";
 import Card from "../ui/dashboard/card/card";
 import Transactions from "../ui/dashboard/transactions/transactions";
 import Chart from "../ui/dashboard/chart/chart";
-import RightBar from "../ui/dashboard/rightBar/rightBar";
 
 const DashBoard: React.FC<childType> = () => {
   return (
@@ -26,9 +25,6 @@ const DashBoard: React.FC<childType> = () => {
           </div>
           <Transactions />
           <Chart />
-        </div>
-        <div className={styles.side}>
-          <RightBar />
         </div>
       </div>
     </Layout>
