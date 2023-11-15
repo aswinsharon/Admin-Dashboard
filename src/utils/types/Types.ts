@@ -4,6 +4,7 @@ import { RelativeRoutingType } from "react-router-dom";
 export interface childType {
   children?: ReactNode;
 }
+
 export interface MenuItemType {
   title: string;
   list: Array<{
@@ -12,10 +13,15 @@ export interface MenuItemType {
     icon: ReactNode;
   }>;
 }
+
 export interface MenuLinkItemType {
   item: {
     path: RelativeRoutingType;
     icon: ReactNode;
     title: string;
   };
+}
+
+export interface PlaceHolder {
+  placeholder?: string | undefined;
 }
