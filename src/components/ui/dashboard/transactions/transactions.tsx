@@ -1,5 +1,5 @@
 import styles from "./transactions.module.css";
-import noavatar from "../../../assets/noavatar.png";
+import noavatar from "../../../../assets/noavatar.png";
 const Transactions = () => {
   return (
     <div className={styles.container}>

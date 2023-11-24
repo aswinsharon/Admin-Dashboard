@@ -1,7 +1,7 @@
 import { RelativeRoutingType } from "react-router-dom";
 import { ReactNode } from "react";
 import styles from "./sidebar.module.css";
-import { MenuItemType } from "../../../utils/types/Types";
+import { MenuItemType } from "../../../../types/Types";
 import {
   MdDashboard,
   MdSupervisedUserCircle,
@@ -15,7 +15,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
-import noavatar from "../../../assets/noavatar.png";
+import noavatar from "../../../../assets/noavatar.png";
 
 let menuItems: MenuItemType[] = [
   {

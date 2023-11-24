@@ -1,7 +1,7 @@
 import { MdSearch } from "react-icons/md";
 import React from "react";
 import styles from "./search.module.css";
-import { PlaceHolder } from "Types";
+import { PlaceHolder } from "../../../../types/Types";
 
 const Search: React.FC<PlaceHolder> = ({ placeholder }) => {
   return (
