@@ -15,6 +15,7 @@
   padding: 10px;
   background-color: #5d57c9;
   color: var(--text);
+  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -27,7 +28,7 @@
   padding: 10px;
 }
 
-.user {
+.product {
   display: flex;
   align-items: center;
   gap: 10px;

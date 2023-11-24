@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
 import styles from "./users.module.css";
 import Search from "../search/search";
+import Pagination from "../pagination/pagination";
+
 const UsersPage = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.top}></div>
-      <Search placeholder="Search for a user ..." />
-      <link href="/dashboard/users/add">
-        <button className={styles.addButton}>Add New</button>
-      </link>
+      <div className={styles.top}>
+        <Search placeholder="Search for a user ..." />
+        <Link to="/">
+          <button className={styles.addButton}>Add New</button>
+        </Link>
+      </div>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -39,19 +43,20 @@ const UsersPage = () => {
             <td>Active</td>
             <td>
               <div className={styles.buttons}>
-                <link href="/">
-                  <button className={`${styles.button}${styles.view}`}>
+                <Link to="/">
+                  <button className={`${styles.button} ${styles.view}`}>
                     View
                   </button>
-                  <button className={`${styles.button}${styles.delete}`}>
-                    Delete
-                  </button>
-                </link>
+                </Link>
+                <button className={`${styles.button} ${styles.delete}`}>
+                  Delete
+                </button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+      <Pagination />
     </div>
   );
 };
