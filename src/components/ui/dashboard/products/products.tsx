@@ -15,6 +15,7 @@ const ProductsPage = () => {
       <table className={styles.table}>
         <thead>
           <tr>
+            <td>Image</td>
             <td>Title</td>
             <td>Description</td>
             <td>Price</td>
@@ -28,15 +29,15 @@ const ProductsPage = () => {
             <td>
               <div className={styles.product}>
                 <img
-                  src=""
+                  src="https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694674493/Croma%20Assets/Communication/Mobiles/Images/300748_0_gqjriw.png?tr=w-600"
                   alt=""
-                  width={40}
-                  height={40}
+                  width={70}
+                  height={70}
                   className={styles.userImage}
                 ></img>
-                Iphone 15
               </div>
             </td>
+            <td>Iphone 15</td>
             <td>NA</td>
             <td>1100$</td>
             <td>24/11/2023</td>
