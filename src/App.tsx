@@ -7,6 +7,7 @@ import ProductsPage from "./components/ui/dashboard/products/products";
 import UsersPage from "./components/ui/dashboard/users/page";
 import Layout from "./components/dashboard/layout";
 import AddProductsPage from "./components/dashboard/products/add/page";
+import AddUsersPage from "./components/ui/dashboard/users/addUsers/page";
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
                   element={<AddProductsPage />}
                 ></Route>
                 <Route path="/users" element={<UsersPage />}></Route>
+                <Route path="/users/add" element={<AddUsersPage />}></Route>
               </Routes>
             </Layout>
           }
