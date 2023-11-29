@@ -6,6 +6,12 @@ const AddUsersPage = () => {
       <form action="/" className={styles.form}>
         <input type="text" placeholder="name" name="name" required></input>
         <input type="email" placeholder="email" name="email" required></input>
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          required
+        ></input>
         <select name="role" id="role">
           <option value="general">Choose a role</option>
           <option value="admin">admin</option>
