@@ -25,3 +25,14 @@ export interface MenuLinkItemType {
 export interface PlaceHolder {
   placeholder?: string | undefined;
 }
+
+export interface UserType {
+  username: String;
+  email: String;
+  password: String;
+  img: String;
+  isActive: Boolean;
+  isAdmin: Boolean;
+  phone: String;
+  address: String;
+}
