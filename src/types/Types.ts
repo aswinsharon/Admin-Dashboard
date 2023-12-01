@@ -37,5 +37,15 @@ export interface UserType {
   phone: string;
   address: string;
 }
+export interface UserFormResponse {
+  username: string;
+  email: string;
+  password: string;
+  img?: string;
+  isActive: string;
+  isAdmin: string;
+  phone: string;
+  address: string;
+}
 
 export type UsersArrayType = UserType[];

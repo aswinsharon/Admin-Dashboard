@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserType } from "Types";
+import { UserType, UserFormResponse } from "Types";
 const BASE_URL = "http://localhost:8081/api/v1";
 
 const api = axios.create({
@@ -17,9 +17,9 @@ const fetchUsers = async (): Promise<UserType[]> => {
   }
 };
 
-const createUsers = async (newUserObject: UserType) => {
+const createUsers = async (newUserObject: UserFormResponse) => {
   try {
-    const createResponse = await api.post("/users/add");
+    const createResponse = await api.post("/users/add", newUserObject);
     console.log(createResponse);
     return createResponse.data;
   } catch (error) {
@@ -28,7 +28,18 @@ const createUsers = async (newUserObject: UserType) => {
   }
 };
 
-export default {
+const deleteUser = async (Id: string) => {
+  try {
+    const deleteResponse = await api.delete(`users/${Id}`);
+    console.log(deleteResponse);
+    return deleteResponse.data;
+  } catch (error) {
+    throw error;
+  }
+};
+const userApi = {
   fetchUsers,
   createUsers,
+  deleteUser,
 };
+export default userApi;
