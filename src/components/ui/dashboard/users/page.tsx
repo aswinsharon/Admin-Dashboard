@@ -4,8 +4,8 @@ import styles from "./users.module.css";
 import Search from "../search/search";
 import Pagination from "../pagination/pagination";
 import api from "../../../../services/api";
-// import userList from "./hooks/userList";
 import { UserType, UsersArrayType } from "Types";
+
 const UsersPage: React.FC = () => {
   const [userData, setUserData] = useState<UsersArrayType>();
 
@@ -21,6 +21,20 @@ const UsersPage: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const handleDeleteUser = async (userId: string) => {
+    console.log("under handle of delete");
+    try {
+      const deleteResponse = await api.deleteUser(userId);
+      if (204 == deleteResponse.status) {
+        console.log(typeof deleteResponse.status);
+        const updatedUserData = userData?.filter((user) => user._id !== userId);
+        setUserData(updatedUserData);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -43,14 +57,7 @@ const UsersPage: React.FC = () => {
         </thead>
         <tbody>
           {userData?.map((user: UserType) => {
-            if (
-              user?._id &&
-              user?.address &&
-              user?.email &&
-              user.isActive &&
-              user?.username &&
-              user?.isAdmin
-            ) {
+            if (user?._id && user?.address && user?.email && user?.username) {
               return (
                 <tr key={user._id}>
                   <td>
@@ -68,7 +75,7 @@ const UsersPage: React.FC = () => {
                   <td>{user.email}</td>
                   <td>13.01.2022</td>
                   <td>{user.isAdmin ? "Admin" : "Member"}</td>
-                  <td>{user.isActive ? "Active" : "inActive"}</td>
+                  <td>{user.isActive ? "Active" : "InActive"}</td>
                   <td>
                     <div className={styles.buttons}>
                       <Link to="/">
@@ -76,7 +83,10 @@ const UsersPage: React.FC = () => {
                           View
                         </button>
                       </Link>
-                      <button className={`${styles.button} ${styles.delete}`}>
+                      <button
+                        className={`${styles.button} ${styles.delete}`}
+                        onClick={() => handleDeleteUser(user._id)}
+                      >
                         Delete
                       </button>
                     </div>
