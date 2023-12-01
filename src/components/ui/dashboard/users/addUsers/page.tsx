@@ -1,9 +1,31 @@
+import api from "../../../../../services/api";
 import styles from "./addUsers.module.css";
-
+import { useState } from "react";
 const AddUsersPage = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "general",
+  });
+
+  const handleChange = (event: any) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    try {
+      const response = await api.createUsers(formData);
+      console.log("User added successfully:", response);
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <form action="/" className={styles.form}>
+      <form action="/" onSubmit={handleSubmit} className={styles.form}>
         <input type="text" placeholder="name" name="name" required></input>
         <input type="email" placeholder="email" name="email" required></input>
         <input
