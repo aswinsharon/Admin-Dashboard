@@ -27,12 +27,15 @@ export interface PlaceHolder {
 }
 
 export interface UserType {
-  username: String;
-  email: String;
-  password: String;
-  img: String;
-  isActive: Boolean;
-  isAdmin: Boolean;
-  phone: String;
-  address: String;
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  img?: string;
+  isActive: boolean;
+  isAdmin: boolean;
+  phone: string;
+  address: string;
 }
+
+export type UsersArrayType = UserType[];
