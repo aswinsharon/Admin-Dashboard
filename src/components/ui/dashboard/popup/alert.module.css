@@ -1,0 +1,118 @@
+.alert {
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+}
+
+/* Animation for showing the alert */
+.alert.showAlert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.alert.show {
+  animation: show_slide 1s ease forwards;
+}
+
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-10%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+.alert.hide {
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Common styling for both success and error icons */
+.alert .fas {
+  font-size: 22px;
+}
+
+/* Styling for success scenario */
+.alert.success {
+  background: #69c36a; /* Green background for success */
+  border-left: 8px solid #4d994e; /* Green border */
+}
+
+/* Styling for error scenario */
+.alert.error {
+  background: #e06666; /* Red background for error */
+  border-left: 8px solid #c74a4a; /* Red border */
+}
+
+/* Styling for both icon and message */
+.icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: #fff; /* Adjust text color for both scenarios */
+}
+
+.msg {
+  padding: 0 20px;
+  font-size: 18px;
+  color: #fff; /* Adjust text color for both scenarios */
+}
+
+/* Styling for the close button */
+.closeBtn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 18px;
+  cursor: pointer;
+}
+
+/* Styling for the close button in success scenario */
+.alert.success .closeBtn {
+  background: #4d994e; /* Green color for success */
+}
+
+/* Styling for the close button in error scenario */
+.alert.error .closeBtn {
+  background: #c74a4a; /* Red color for error */
+}
+
+/* Styling for close button on hover in success scenario */
+.alert.success .closeBtn:hover {
+  background: #2f662a; /* Darker green color on hover for success */
+}
+
+/* Styling for close button on hover in error scenario */
+.alert.error .closeBtn:hover {
+  background: #a53939; /* Darker red color on hover for error */
+}

@@ -1,4 +1,6 @@
 import api from "../../../../../services/api";
+import Alert from "../../popup/alert";
+
 import styles from "./addUsers.module.css";
 import { useState } from "react";
 const AddUsersPage = () => {
@@ -12,6 +14,11 @@ const AddUsersPage = () => {
     address: "",
     phone: "",
   });
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    type: "success", // Default to success, can be 'success' or 'error'
+    message: "",
+  });
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -20,7 +27,13 @@ const AddUsersPage = () => {
       [name]: value,
     });
   };
-
+  // for (let count = 0; count < 4; count++) {
+  //   setAlertInfo({
+  //     show: true,
+  //     type: "success",
+  //     message: "User successfully created!",
+  //   });
+  // }
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -28,10 +41,38 @@ const AddUsersPage = () => {
       console.log(formData);
       const response = await api.createUsers(formData);
       console.log(response);
+      setAlertInfo({
+        show: true,
+        type: "success",
+        message: "User successfully created!",
+      });
+
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        img: "",
+        isActive: "no",
+        isAdmin: "no",
+        address: "",
+        phone: "",
+      });
     } catch (error) {
+      setAlertInfo({
+        show: true,
+        type: "error",
+        message: "Error creating user. Try again.",
+      });
       console.error("Error sending data to backend:", error);
-      // Handle error
     }
+  };
+
+  const closeAlert = () => {
+    setAlertInfo({
+      show: false,
+      type: "success", // Reset to default type
+      message: "",
+    });
   };
 
   return (
@@ -90,6 +131,12 @@ const AddUsersPage = () => {
         </select>
         <button type="submit">Submit</button>
       </form>
+      <Alert
+        show={alertInfo.show}
+        type={alertInfo.type}
+        message={alertInfo.message}
+        onClose={closeAlert}
+      />
     </div>
   );
 };
