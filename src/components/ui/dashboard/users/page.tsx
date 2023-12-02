@@ -26,10 +26,15 @@ const UsersPage: React.FC = () => {
     console.log("under handle of delete");
     try {
       const deleteResponse = await api.deleteUser(userId);
-      if (204 == deleteResponse.status) {
-        console.log(typeof deleteResponse.status);
-        const updatedUserData = userData?.filter((user) => user._id !== userId);
-        setUserData(updatedUserData);
+      if (null !== deleteResponse) {
+        if (204 === deleteResponse?.status) {
+          const updatedUserData = userData?.filter(
+            (user) => user._id !== userId
+          );
+          setUserData(updatedUserData);
+        } else {
+        }
+      } else {
       }
     } catch (error) {
       throw error;

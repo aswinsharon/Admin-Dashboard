@@ -31,8 +31,7 @@ const createUsers = async (newUserObject: UserFormResponse) => {
 const deleteUser = async (Id: string) => {
   try {
     const deleteResponse = await api.delete(`users/${Id}`);
-    console.log(deleteResponse);
-    return deleteResponse.data;
+    return deleteResponse;
   } catch (error) {
     throw error;
   }
