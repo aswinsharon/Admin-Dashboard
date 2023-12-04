@@ -1,6 +1,6 @@
 import axios from "axios";
 import { UserType, UserFormResponse } from "Types";
-const BASE_URL = "http://localhost:8081/api/v1";
+const BASE_URL = process.env.DASHBOARD_API_URL;
 
 const api = axios.create({
   baseURL: BASE_URL,
