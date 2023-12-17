@@ -5,39 +5,65 @@ import Search from "../search/search";
 import Pagination from "../pagination/pagination";
 import api from "../../../../services/api";
 import { UserType, UsersArrayType } from "Types";
+import Alert from "../popup/alert";
 
 const UsersPage: React.FC = () => {
   const [userData, setUserData] = useState<UsersArrayType>();
+  const [alertData, setAlertData] = useState<{
+    type: string;
+    message: string;
+  } | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setShowAlert(true);
       try {
         const userData = await api.fetchUsers();
         setUserData(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setAlertData({
+          type: "error",
+          message: "Error fetching user. Please try again.",
+        });
       }
     };
-
     fetchData();
   }, []);
 
   const handleDeleteUser = async (userId: string) => {
     console.log("under handle of delete");
+    setShowAlert(true);
     try {
       const deleteResponse = await api.deleteUser(userId);
       if (null !== deleteResponse) {
         if (204 === deleteResponse?.status) {
+          setAlertData({
+            type: "success",
+            message: "User deleted successfully!",
+          });
           const updatedUserData = userData?.filter(
             (user) => user._id !== userId
           );
           setUserData(updatedUserData);
         } else {
+          setAlertData({
+            type: "error",
+            message: "Error deleting user. Please try again.",
+          });
         }
       } else {
+        setAlertData({
+          type: "error",
+          message: "Error deleting user. Please try again.",
+        });
       }
     } catch (error) {
-      throw error;
+      setAlertData({
+        type: "error",
+        message: "Error deleting user. Please try again.",
+      });
     }
   };
 
@@ -104,6 +130,14 @@ const UsersPage: React.FC = () => {
           })}
         </tbody>
       </table>
+      {showAlert && (
+        <Alert
+          show={true}
+          type={alertData?.type || "error"}
+          message={alertData?.message || ""}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       <Pagination />
     </div>
   );

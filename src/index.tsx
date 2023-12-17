@@ -1,9 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import dotenv from "dotenv";
-
-dotenv.config();
-
 import App from "./App";
 
 const root = ReactDOM.createRoot(
