@@ -1,9 +1,10 @@
 import api from "../../../../../services/api";
 import Alert from "../../popup/alert";
-
+import { useNavigate } from "react-router-dom";
 import styles from "./addUsers.module.css";
 import { useState } from "react";
 const AddUsersPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -14,11 +15,11 @@ const AddUsersPage = () => {
     address: "",
     phone: "",
   });
-  const [alertInfo, setAlertInfo] = useState({
-    show: false,
-    type: "success", // Default to success, can be 'success' or 'error'
-    message: "",
-  });
+  const [alertData, setAlertData] = useState<{
+    type: string;
+    message: string;
+  } | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -27,26 +28,18 @@ const AddUsersPage = () => {
       [name]: value,
     });
   };
-  // for (let count = 0; count < 4; count++) {
-  //   setAlertInfo({
-  //     show: true,
-  //     type: "success",
-  //     message: "User successfully created!",
-  //   });
-  // }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    setShowAlert(true);
     try {
       console.log(formData);
       const response = await api.createUsers(formData);
       console.log(response);
-      setAlertInfo({
-        show: true,
+      setAlertData({
         type: "success",
-        message: "User successfully created!",
+        message: "User added successfully!",
       });
-
       setFormData({
         username: "",
         email: "",
@@ -57,22 +50,16 @@ const AddUsersPage = () => {
         address: "",
         phone: "",
       });
+      setTimeout(() => {
+        navigate("/dashboard/users");
+      }, 3000);
     } catch (error) {
-      setAlertInfo({
-        show: true,
+      setAlertData({
         type: "error",
-        message: "Error creating user. Try again.",
+        message: "Something went wrong.. please try again",
       });
       console.error("Error sending data to backend:", error);
     }
-  };
-
-  const closeAlert = () => {
-    setAlertInfo({
-      show: false,
-      type: "success", // Reset to default type
-      message: "",
-    });
   };
 
   return (
@@ -131,12 +118,14 @@ const AddUsersPage = () => {
         </select>
         <button type="submit">Submit</button>
       </form>
-      <Alert
-        show={alertInfo.show}
-        type={alertInfo.type}
-        message={alertInfo.message}
-        onClose={closeAlert}
-      />
+      {showAlert && (
+        <Alert
+          show={true}
+          type={alertData?.type || "error"}
+          message={alertData?.message || ""}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </div>
   );
 };

@@ -1,38 +1,54 @@
 // Alert.js
 import { useState, useEffect } from "react";
-import styles from "./alert.module.css";
+import "./alert.css";
 
 const Alert = ({ show, type, message, onClose }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  console.log(
+    "alert is called with",
+    show,
+    " ",
+    type,
+    " ",
+    message,
+    " ",
+    onClose
+  );
+  const [alertVisible, setAlertVisible] = useState(true);
 
   useEffect(() => {
-    if (show) {
-      setIsVisible(true);
+    let timeoutId: NodeJS.Timeout;
 
-      const timeoutId = setTimeout(() => {
-        setIsVisible(false);
-        onClose();
-      }, 4000);
-
-      return () => clearTimeout(timeoutId);
+    if (alertVisible) {
+      timeoutId = setTimeout(() => {
+        setAlertVisible(false);
+      }, 5000);
     }
-  }, [show, onClose]);
 
-  const handleClose = () => {
-    setIsVisible(false);
-    onClose();
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [alertVisible, onClose]);
+
+  const showAlert = () => {
+    setAlertVisible(true);
   };
+  const hideAlert = () => {
+    setAlertVisible(false);
+  };
+  useEffect(() => {
+    setAlertVisible(show);
+  }, [show]);
 
   return (
-    <div
-      className={`${styles.alert} ${isVisible ? styles.showAlert : ""} ${
-        type === "success" ? styles.success : styles.error
-      }`}
-    >
-      <span className={`${styles.icon} fas fa-exclamation-circle`}></span>
-      <span className={styles.msg}>{message}</span>
-      <div className={styles.closeBtn} onClick={handleClose}>
-        <span className={`${styles.icon} fas fa-times`}></span>
+    <div>
+      <div
+        className={`alert ${type} ${alertVisible ? "show showAlert" : "hide"}`}
+      >
+        <span className="fas fa-exclamation-circle"></span>
+        <span className="msg">{message}</span>
+        <div className="close-btn" onClick={hideAlert}>
+          <span className="fas fa-times"></span>
+        </div>
       </div>
     </div>
   );
