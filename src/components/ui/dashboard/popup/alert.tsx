@@ -21,7 +21,7 @@ const Alert = ({ show, type, message, onClose }) => {
     if (alertVisible) {
       timeoutId = setTimeout(() => {
         setAlertVisible(false);
-      }, 5000);
+      }, 3000);
     }
 
     return () => {

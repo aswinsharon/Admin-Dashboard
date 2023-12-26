@@ -6,6 +6,7 @@ import Pagination from "../pagination/pagination";
 import api from "../../../../services/api";
 import { UserType, UsersArrayType } from "Types";
 import Alert from "../popup/alert";
+import { AxiosError } from "axios";
 
 const UsersPage: React.FC = () => {
   const [userData, setUserData] = useState<UsersArrayType>();
@@ -17,16 +18,37 @@ const UsersPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setShowAlert(true);
       try {
         const userData = await api.fetchUsers();
-        setUserData(userData);
-      } catch (error) {
+        if (null !== userData) {
+          setUserData(userData);
+        } else {
+          setAlertData({
+            type: "error",
+            message: "Error fetching users. Please try again.",
+          });
+        }
+      } catch (error: unknown) {
+        setShowAlert(true);
         console.error("Error fetching user data:", error);
-        setAlertData({
-          type: "error",
-          message: "Error fetching user. Please try again.",
-        });
+        if (error instanceof Error) {
+          if ((error as AxiosError)?.code === "ERR_NETWORK") {
+            setAlertData({
+              type: "error",
+              message: "Network Error, Please try again",
+            });
+          } else {
+            setAlertData({
+              type: "error",
+              message: "An Error Occured while fetching users",
+            });
+          }
+        } else {
+          setAlertData({
+            type: "error",
+            message: "An Error Occured while fetching users",
+          });
+        }
       }
     };
     fetchData();
@@ -34,25 +56,16 @@ const UsersPage: React.FC = () => {
 
   const handleDeleteUser = async (userId: string) => {
     console.log("under handle of delete");
-    setShowAlert(true);
     try {
+      setShowAlert(true);
       const deleteResponse = await api.deleteUser(userId);
-      if (null !== deleteResponse) {
-        if (204 === deleteResponse?.status) {
-          setAlertData({
-            type: "success",
-            message: "User deleted successfully!",
-          });
-          const updatedUserData = userData?.filter(
-            (user) => user._id !== userId
-          );
-          setUserData(updatedUserData);
-        } else {
-          setAlertData({
-            type: "error",
-            message: "Error deleting user. Please try again.",
-          });
-        }
+      if (null !== deleteResponse && 204 === deleteResponse?.status) {
+        setAlertData({
+          type: "success",
+          message: "User deleted successfully!",
+        });
+        const updatedUserData = userData?.filter((user) => user._id !== userId);
+        setUserData(updatedUserData);
       } else {
         setAlertData({
           type: "error",
@@ -62,7 +75,7 @@ const UsersPage: React.FC = () => {
     } catch (error) {
       setAlertData({
         type: "error",
-        message: "Error deleting user. Please try again.",
+        message: "Error Occured while deleting user",
       });
     }
   };
@@ -125,7 +138,11 @@ const UsersPage: React.FC = () => {
                 </tr>
               );
             } else {
-              throw new Error("Error fetching details");
+              setAlertData({
+                type: "error",
+                message: "An Error Occured while fetching users",
+              });
+              throw new Error("Invalid data");
             }
           })}
         </tbody>

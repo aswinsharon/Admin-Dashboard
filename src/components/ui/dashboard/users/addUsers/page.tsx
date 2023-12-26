@@ -3,6 +3,7 @@ import Alert from "../../popup/alert";
 import { useNavigate } from "react-router-dom";
 import styles from "./addUsers.module.css";
 import { useState } from "react";
+
 const AddUsersPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -40,25 +41,19 @@ const AddUsersPage = () => {
         type: "success",
         message: "User added successfully!",
       });
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        img: "",
-        isActive: "no",
-        isAdmin: "no",
-        address: "",
-        phone: "",
-      });
       setTimeout(() => {
+        setShowAlert(false);
         navigate("/dashboard/users");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       setAlertData({
         type: "error",
         message: "Something went wrong.. please try again",
       });
       console.error("Error sending data to backend:", error);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 2000);
     }
   };
 
