@@ -70,7 +70,7 @@
 
 .alert.success .fa-exclamation-circle {
   position: absolute;
-  left: 20px;
+  left: 5px;
   top: 50%;
   transform: translateY(-50%);
   color: #508d69;
@@ -78,7 +78,7 @@
 }
 .alert.error .fa-exclamation-circle {
   position: absolute;
-  left: 20px;
+  left: 5px;
   top: 50%;
   transform: translateY(-50%);
   color: #be3144;
