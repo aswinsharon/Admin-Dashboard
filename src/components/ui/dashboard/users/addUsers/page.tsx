@@ -2,7 +2,7 @@ import api from "../../../../../services/api";
 import Alert from "../../popup/alert";
 import { useNavigate } from "react-router-dom";
 import styles from "./addUsers.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddUsersPage = () => {
   const navigate = useNavigate();
@@ -16,10 +16,7 @@ const AddUsersPage = () => {
     address: "",
     phone: "",
   });
-  const [alertData, setAlertData] = useState<{
-    type: string;
-    message: string;
-  } | null>(null);
+  const [alertData, setAlertData] = useState<{ type: string; message: string; } | null>(null);
   const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = (e: any) => {
@@ -29,6 +26,19 @@ const AddUsersPage = () => {
       [name]: value,
     });
   };
+  const showAlertWithData = (type: string, message: string) => {
+    setShowAlert(true);
+    setAlertData({ type, message });
+  };
+  useEffect(() => {
+    // Use the effect to hide the alert after a certain duration
+    const timeoutId = setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+
+    // Clear the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, [showAlert]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -36,21 +46,21 @@ const AddUsersPage = () => {
     try {
       console.log(formData);
       const response = await api.createUsers(formData);
-      console.log(response);
-      setAlertData({
-        type: "success",
-        message: "User added successfully!",
-      });
-      setTimeout(() => {
-        setShowAlert(false);
-        navigate("/dashboard/users");
-      }, 2000);
+      if (response?.statusCode === 201) {
+        showAlertWithData("success", "User added successfully!");
+        setTimeout(() => {
+          setShowAlert(false);
+          navigate("/dashboard/users");
+        }, 2000);
+      } else if (response?.statusCode === 409) {
+        showAlertWithData("error", "Username or email is already taken");
+      } else if (response?.statusCode === 400 && response.invalidFields?.length > 0) {
+        showAlertWithData("error", "Please provide valid data");
+      } else {
+        showAlertWithData("error", "Something went wrong.. please try again")
+      }
     } catch (error) {
-      setAlertData({
-        type: "error",
-        message: "Something went wrong.. please try again",
-      });
-      console.error("Error sending data to backend:", error);
+      showAlertWithData("error", "Internal server error");
       setTimeout(() => {
         setShowAlert(false);
       }, 2000);

@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
 import noavatar from "../../../../assets/noavatar.png";
+import { getUserName } from "../../../../utils/utils";
 
 let menuItems: MenuItemType[] = [
   {
@@ -81,6 +82,7 @@ let menuItems: MenuItemType[] = [
 ];
 
 const SideBar = () => {
+  const currentUser = getUserName();
   return (
     <div className={styles.container}>
       <div className={styles.user}>
@@ -92,7 +94,7 @@ const SideBar = () => {
           height="50"
         ></img>
         <div className={styles.userDetail}>
-          <span className={styles.userName}>John doe</span>
+          <span className={styles.userName}>${currentUser}</span>
           <span className={styles.userTitle}>Admininstrator</span>
         </div>
       </div>

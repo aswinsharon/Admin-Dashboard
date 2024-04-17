@@ -3,16 +3,6 @@ import { useState, useEffect } from "react";
 import "./alert.css";
 
 const Alert = ({ show, type, message, onClose }) => {
-  console.log(
-    "alert is called with",
-    show,
-    " ",
-    type,
-    " ",
-    message,
-    " ",
-    onClose
-  );
   const [alertVisible, setAlertVisible] = useState(true);
 
   useEffect(() => {

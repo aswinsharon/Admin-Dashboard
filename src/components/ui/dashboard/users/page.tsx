@@ -7,32 +7,24 @@ import api from "../../../../services/api";
 import { UserType, UsersArrayType } from "Types";
 import Alert from "../popup/alert";
 import { AxiosError } from "axios";
-
+import { parseCookies } from "../../../../utils/utils";
 const UsersPage: React.FC = () => {
   const [userData, setUserData] = useState<UsersArrayType>();
-  const [alertData, setAlertData] = useState<{
-    type: string;
-    message: string;
-  } | null>(null);
+  // const [accessToken, setAccessToken] = useState('');
+  const [alertData, setAlertData] = useState<{ type: string; message: string; } | null>(null);
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await api.fetchUsers();
-        if (null !== userData) {
+        const userInformation = await api.fetchUsers();
+        const userData = userInformation?.data;
+        if (userData && userInformation?.status === 200) {
           setUserData(userData);
         } else {
-          setAlertData({
-            type: "error",
-            message: "Error fetching users. Please try again.",
-          });
-        }
-      } catch (error: unknown) {
-        setShowAlert(true);
-        console.error("Error fetching user data:", error);
-        if (error instanceof Error) {
-          if ((error as AxiosError)?.code === "ERR_NETWORK") {
+          console.log(JSON.stringify(userInformation.code))
+          setShowAlert(true);
+          if ((userInformation as AxiosError)?.code === "ERR_NETWORK") {
             setAlertData({
               type: "error",
               message: "Network Error, Please try again",
@@ -43,12 +35,14 @@ const UsersPage: React.FC = () => {
               message: "An Error Occured while fetching users",
             });
           }
-        } else {
-          setAlertData({
-            type: "error",
-            message: "An Error Occured while fetching users",
-          });
         }
+      } catch (error: any) {
+        setShowAlert(true);
+        console.log("Error fetching user data:", error.response);
+        setAlertData({
+          type: "error",
+          message: "An Error Occured while fetching users",
+        });
       }
     };
     fetchData();
