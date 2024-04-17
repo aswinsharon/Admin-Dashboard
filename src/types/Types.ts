@@ -49,3 +49,13 @@ export interface UserFormResponse {
 }
 
 export type UsersArrayType = UserType[];
+
+export interface AuthContextType {
+  auth: Record<string, any>; // Adjust the type based on your auth object structure
+  setAuth: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+}
+
+export type LoginData = {
+  username: string;
+  password: string;
+}
