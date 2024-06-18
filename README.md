@@ -44,3 +44,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+| Task        | Details     |
+|-------------|-------------|
+| <ul><li>Buy milk</li><li>Buy bread</li></ul> | <ul><li>Supermarket</li><li>Bakery</li></ul> |
+| <ul><li>Clean room</li><li>Do laundry</li></ul> | <ul><li>Bedroom</li><li>Laundry room</li></ul> |
